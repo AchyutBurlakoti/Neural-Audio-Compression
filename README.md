@@ -38,19 +38,6 @@ All other functionality related to the model's uses can be found the root dir an
 * [High Fidelity Neural Audio Compression.pdf](https://github.com/AchyutBurlakoti/Neural-Audio-Compression/files/11345808/High.Fidelity.Neural.Audio.Compression.pdf)
 * [Unsupervised speech representation learning.pdf](https://github.com/AchyutBurlakoti/Neural-Audio-Compression/files/11345811/Unsupervised.speech.representation.learning.pdf)
 
-### Result and Discussion
-
-The model was compared with standard audio codecs such as OPUS, and EVS with two
-standard metrics ViSQOL and MUSHRA.
-On average from all 4 bit-rates (3, 6, 12, 24 kbps) we obtain the MUSHRA score of 47.47±0.6
-out of 100. For 12 and 24 kbps we obtain the MUSHRA score above 50 which is acceptable
-but not that great but for 3 and 6 kbps we obtain above 40 and at 6 kbps our model beats
-the OPUS. As the MUSHRA score is a subjective evaluation and needs proper guidelines to
-be followed we decide to also calculate the objective score by using ViSQOL. If the ViSQOL
-score of the audio is above 3 then it is acceptable otherwise audio quality is considered bad
-quality. Our model obtains an above 3 score only for 24 kbps which shows that further
-improvement needs to be done to increase the score.
-
 ### Future Uses
 
 The developed model is a self-associative network which learns the representation of the data through the compression of those high dimensional data in the discrete latent space (i.e. through vector quantization) so model knows
@@ -60,3 +47,40 @@ the audio data representation very well and can be further used in other underly
 * Unable to try the model with the discriminator of Hifi-GAN due to lack of memory capacity so anyone can try it out as the code for Hifi-GAN traning is also provided in the /src/ folder
 * The calculated MUSHRA scores still doesn't represent the model efficiency well due to lack of experimentation setup for MUSHRA score calculation.
 
+
+## Custom File Format (.nac)
+
+As with the other audio codecs like mp3, flacc which requires their own file format, our neural audio codec also have it's own file format called .nac (neural audio codec).
+
+* Byte order : network big endian
+* Header format (9 bytes) :
+  * 3 bytes: magic string
+  * 1 byte : version number
+  * 4 bytes: metadata length
+  * 1 byte : bit rate
+  
+ ![image](https://user-images.githubusercontent.com/52134359/234928959-726e0d3d-93cd-4bf7-b0fa-709781ce96b6.png)
+ 
+ ## Result
+ 
+ The following results are the reconstruction of the audio when they are compressed at 24 kbps bitrate i.e. only 24000 bits are need to represent 1s audio clip which is in total 2.9 KB for 16000Hz audio waveform.
+ 
+### speech audio
+  * original audio (1.63 MB in .wav format)
+
+https://user-images.githubusercontent.com/52134359/234932740-34b00361-937d-4d56-b47a-a4bf9522c9bd.mp4
+
+  * reconstructed 24000 kbps audio (153 KB in .nac format)
+  
+https://user-images.githubusercontent.com/52134359/234932104-245b4e9a-638b-4527-98f8-4475c65b3426.mp4
+
+### piano audio
+  * original audio 
+ 
+
+https://user-images.githubusercontent.com/52134359/234934838-479839db-8f6c-48c7-9302-e4634f75be26.mp4
+
+
+  * reconstructed audio
+ 
+https://user-images.githubusercontent.com/52134359/234933083-298adb7d-e650-4548-825c-179c9d380635.mp4
