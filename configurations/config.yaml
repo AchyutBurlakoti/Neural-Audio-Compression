@@ -1,0 +1,61 @@
+# Training
+batch_size: 10
+data_root: './data/processed/'
+start_epoch: 0
+num_epochs: 3000
+num_workers: 1
+train_val_split: 0.8
+learning_rate: 0.0003
+
+# Cuda
+use_cuda: True
+use_data_parallel: False
+use_device:
+
+# Audio
+sampling_rate: 16000 # Sampling rate
+res_type: 'kaiser_fast' # Resampling algorithm
+top_db: 20 # The threshold (in decibels) below reference to consider as silence
+length: 7680
+
+# Encoder
+encoder:
+  in_channels: 32
+  out_channels: 128
+  residual_block: simple   # rrdb | simple
+
+# Residual Block
+rrdb:
+  beta: 0.2
+  trainable: False
+  dense_block:
+    res_scale: 0.2
+
+# Decoder
+decoder:
+  in_channels: 128
+  out_channels: 32
+  residual_block: simple   # rrdb | simple
+
+# VQ
+vector_quantization:
+  dimension: 128
+  codebook_size: 1024
+  striding_factor: 320
+
+# Optimizers
+optimizers:
+  name: adam
+  beta_1: 0.5
+  beta_2: 0.9
+
+# Model
+model:
+  traning:
+    target_bandwidth: 24
+  inference:
+    target_bandwidth: 24
+
+discriminators: mel-gan  # mel-gan or hifi-gan
+dropout: False
+no_of_residuals: 1
