@@ -7,6 +7,9 @@ with quantization of hidden features, and have been applied in early works for s
 speech compression. While most of these works target speech coding at low bitrates,
 several studies have demonstrated the efficient compression of audio using neural networks.
 
+Download model from : https://drive.google.com/file/d/1xc7-heD1JIf2BOA02Ta5YUpJguDSmGZY/view?usp=sharing
+For more information please read the report.pdf from /reports/
+
 ### Architecture
 ![image](https://user-images.githubusercontent.com/52134359/234917869-ae54487f-12fb-491a-8a14-48cec4d00aee.png)
 
